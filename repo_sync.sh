@@ -4,6 +4,11 @@
 # Update the local_manifests
 cd ~/android/PureNexus/.repo/local_manifests/
 git pull
+
+# Update vendors files
+cd ~/android/Ryther/vendor/lge/
+git pull
+
 cd ~/android/PureNexus/
 
 # Reset to standard toolchain
