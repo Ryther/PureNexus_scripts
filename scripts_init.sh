@@ -60,13 +60,13 @@ echo "Saving variables in $SCRIPT_DIR/variables.var"
 echo "#!/bin/bash" >$SCRIPT_DIR/variables.var
 echo "# Global variables used by all scripts" >>$SCRIPT_DIR/variables.var
 echo "" >>$SCRIPT_DIR/variables.var
-echo "REMOTE_REPO=\"$REMOTE_REPO\"" >>$SCRIPT_DIR/variables.var
-echo "REMOTE_CUSTOM_REPO=\"$REMOTE_CUSTOM_REPO\"" >>$SCRIPT_DIR/variables.var
-echo "BRANCH=\"$BRANCH\"" >>$SCRIPT_DIR/variables.var
-echo "ROM_NAME=\"$ROM_NAME\"" >>$SCRIPT_DIR/variables.var
-echo "BUILD_ROOT_PATH=\"$BUILD_ROOT_PATH\"" >>$SCRIPT_DIR/variables.var
-echo "USER_NAME=\"$USER_NAME\"" >>$SCRIPT_DIR/variables.var
-echo "CUSTOM_ROOT_PATH=\"$CUSTOM_ROOT_PATH\"" >>$SCRIPT_DIR/variables.var
-echo "STANDARD_TOOLCHAIN_VERSION=\"$STANDARD_TOOLCHAIN_VERSION\"" >>$SCRIPT_DIR/variables.var
-echo "LUNCH_PREFIX=\"$LUNCH_PREFIX\"" >>$SCRIPT_DIR/variables.var
-echo "LUNCH_SUFFIX=\"$LUNCH_SUFFIX\"" >>$SCRIPT_DIR/variables.var
+echo "REMOTE_REPO=$REMOTE_REPO" >>$SCRIPT_DIR/variables.var
+echo "REMOTE_CUSTOM_REPO=$REMOTE_CUSTOM_REPO" >>$SCRIPT_DIR/variables.var
+echo "BRANCH=$BRANCH" >>$SCRIPT_DIR/variables.var
+echo "ROM_NAME=$ROM_NAME" >>$SCRIPT_DIR/variables.var
+echo "BUILD_ROOT_PATH=$BUILD_ROOT_PATH" >>$SCRIPT_DIR/variables.var
+echo "USER_NAME=$USER_NAME" >>$SCRIPT_DIR/variables.var
+echo "CUSTOM_ROOT_PATH=$CUSTOM_ROOT_PATH" >>$SCRIPT_DIR/variables.var
+echo "STANDARD_TOOLCHAIN_VERSION=$STANDARD_TOOLCHAIN_VERSION" >>$SCRIPT_DIR/variables.var
+echo "LUNCH_PREFIX=$LUNCH_PREFIX" >>$SCRIPT_DIR/variables.var
+echo "LUNCH_SUFFIX=$LUNCH_SUFFIX" >>$SCRIPT_DIR/variables.var

@@ -32,7 +32,7 @@ git pull
 
 cd ${BUILD_ROOT_PATH}/
 
-# Reset to standard toolchain
+# Reset to standard toolchain 1/2
 # Delete old link
 unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
@@ -51,6 +51,8 @@ if [ -d ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm ]
 		mkdir -p ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/
 		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 fi
+
+# Unlink removed vendors folders before sync to prevents errors
 
 echo ""
 echo "Starting repo sync..."

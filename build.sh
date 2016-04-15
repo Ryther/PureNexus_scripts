@@ -1,16 +1,27 @@
-#!/bin/bash
+#!/bin/bash -vx
 # ${ROM_NAME} build helper
 
+echo ""
+echo "Checking for project global variables..."
+if [ -f $(dirname "$0")/variables.var ]
+	then
+		echo ""
+		echo "Including project global variables..."
+		source $(dirname "$0")/variables.var
+	else
+		echo ""
+		echo "Executing project global variables init..."
+		source $(dirname "$0")/scripts_init.sh
+		echo ""
+		echo "Including project global variables..."
+		source $(dirname "$0")/variables.var
+fi
+
 # Constants
-ROM_NAME="PureNexus"
-BUILD_ROOT_PATH="~/android/${ROM_NAME}"
-CUSTOM_ROOT_PATH="~/android/Ryther"
-LUNCH_PREFIX="nexus"
-LUNCH_SUFFIX="user"
 DEVICES=2
 SELECTION=1
 TOOLCHAIN_SELECTION=1
-TOOLCHAIN="UBERTC"
+TOOLCHAIN=UBERTC
 MENU_ITEMS=5
 MENU_TOOLCHAIN_ITEMS=5
 
@@ -18,15 +29,15 @@ MENU_TOOLCHAIN_ITEMS=5
 source build/envsetup.sh &> /dev/null
 
 # Set standard toolchain
-if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ]
+if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/aarch64/ ]
 	then
 		unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
-		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+		ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${STANDARD_TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 fi
 if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ]
 	then
 		unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
-		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+		ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 fi
 
 # Prepare to build for selected model
@@ -143,21 +154,21 @@ do
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "3" ]
 					then
-						echo "  * 3  --  Linaro 4.9                    "
+						echo "  * 3  --  Linaro 5.1                    "
 					else
-						echo "    3  --  Linaro 4.9                    "
+						echo "    3  --  Linaro 5.1                    "
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "4" ]
 					then
-						echo "  * 3  --  Back to devices               "
+						echo "  * 4  --  Back to devices               "
 					else
-						echo "    3  --  Back to devices               "
+						echo "    4  --  Back to devices               "
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "5" ]
 					then
-						echo "  * 4  --  Exit                          "
+						echo "  * 5  --  Exit                          "
 					else
-						echo "    4  --  Exit                          "
+						echo "    5  --  Exit                          "
 				fi
 				echo "========================================="
 				echo " Use - or + to move in the selection     "
@@ -199,52 +210,55 @@ do
 						echo "========================================="
 						echo "           UBERTC 4.9 selected           "
 						echo "-----------------------------------------"
-						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ]
+						TOOLCHAIN=UBERTC
+						TOOLCHAIN_VERSION=4.9
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/aarch64/ ]
 							then
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
-								ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 						fi
-						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ]
 							then
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
-								ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
-						TOOLCHAIN="UBERTC"
-						sleep 2
+						sleep 10
 						break ;;
 					2) 
 						echo "========================================="
 						echo "          SaberMod 4.9 selected          "
 						echo "-----------------------------------------"
-						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/aarch64/ ]
+						TOOLCHAIN=SaberMod
+						TOOLCHAIN_VERSION=4.9
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/aarch64/ ]
 							then
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
-								ln -s ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 						fi
-						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/arm/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ]
 							then
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
-								ln -s ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
-						TOOLCHAIN="SaberMod"
-						sleep 2
+						sleep 10
 						break ;;
 					3) 
 						echo "========================================="
-						echo "           Linaro 4.9 selected           "
+						echo "           Linaro 5.1 selected           "
 						echo "-----------------------------------------"
-						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/Linaro/aarch64/ ]
+						TOOLCHAIN=Linaro
+						TOOLCHAIN_VERSION=5.1
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/aarch64/ ]
 							then
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
-								ln -s ${CUSTOM_ROOT_PATH}/toolchains/Linaro/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 						fi
-						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/Linaro/arm/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ]
 							then
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
-								ln -s ${CUSTOM_ROOT_PATH}/toolchains/Linaro/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
-						TOOLCHAIN="Linaro"
-						sleep 2
+						sleep 10
 						break ;;
 					4)
 						echo "========================================="
@@ -289,13 +303,13 @@ for (( i=SELECTION; i<=$DEVICES; i++ ))
 	do
 		case $i in
 			1)
-				MODEL="bullhead"
+				MODEL=bullhead
 				echo "========================================="
 				echo "           Building $MODEL             "
 				echo "-----------------------------------------"
 				lunch ${LUNCH_PREFIX}_${MODEL}-${LUNCH_SUFFIX} ;;
 			2) 
-				MODEL="hammerhead"
+				MODEL=hammerhead
 				echo "========================================="
 				echo "          Building $MODEL            "
 				echo "-----------------------------------------"
