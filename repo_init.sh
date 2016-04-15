@@ -3,6 +3,7 @@
 
 # Consts
 REMOTE_REPO="https://github.com/PureNexusProject/manifest.git"
+REMOTE_CUSTOM_REPO="https://github.com/Ryther"
 BRANCH="mm"
 STANDARD_TOOLCHAIN_VERSION="4.9"
 ROM_NAME="PureNexus"
@@ -16,7 +17,7 @@ repo init -u ${REMOTE_REPO} -b ${BRANCH}
 cd ${BUILD_ROOT_PATH}/.repo/
 mkdir local_manifests
 cd local_manifests
-git clone https://github.com/Ryther/${ROM_NAME}_local_manifests .
+git clone ${REMOTE_CUSTOM_REPO}/${ROM_NAME}_local_manifests .
 
 # Creater vendor symlink
 # Create target path
