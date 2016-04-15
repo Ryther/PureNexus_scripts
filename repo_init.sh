@@ -2,6 +2,7 @@
 # Repo init script
 
 BRANCH="mm"
+STANDARD_TOOLCHAIN_VERSION="4.9"
 
 # Initialize the repo
 repo init -u https://github.com/PureNexusProject/manifest.git -b ${BRANCH}
@@ -22,5 +23,5 @@ ln -s ~/android/Ryther/vendor/lge/ ~/android/PureNexus/vendor/lge
 # Create target path
 mkdir -p ~/android/PureNexus/prebuilts/gcc/linux-x86/
 # Create symlinks
-ln -s ~/android/Ryther/toolchains/UBERTC/aarch64/ ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
-ln -s ~/android/Ryther/toolchains/UBERTC/arm/ ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
+ln -s ~/android/Ryther/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/aarch64/ ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
+ln -s ~/android/Ryther/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
