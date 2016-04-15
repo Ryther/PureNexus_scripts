@@ -12,9 +12,9 @@ mkdir local_manifests
 cd local_manifests
 git clone https://github.com/Ryther/PureNexus_local_manifests .
 
-# Creater prebuilt vendor symlink
+# Creater vendor symlink
 # Create target path
-mkdir -p ~/android/PureNexus/vendor/lge
+mkdir -p ~/android/PureNexus/vendor/
 # Create symlinks
 ln -s ~/android/Ryther/vendor/lge/ ~/android/PureNexus/vendor/lge
 
