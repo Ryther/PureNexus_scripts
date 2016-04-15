@@ -4,10 +4,10 @@
 # Include global variables
 if [ -f $(dirname "$0")/variables.var ]
 	then
-		source variables.var
+		source $(dirname "$0")/variables.var
 	else
-		source scripts_init.sh
-		source variables.var
+		source $(dirname "$0")/scripts_init.sh
+		source $(dirname "$0")/variables.var
 fi
 
 echo "$USER_NAME"
