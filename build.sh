@@ -222,7 +222,7 @@ do
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
-						sleep 10
+						sleep 2
 						break ;;
 					2) 
 						echo "========================================="
@@ -240,7 +240,7 @@ do
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
-						sleep 10
+						sleep 2
 						break ;;
 					3) 
 						echo "========================================="
@@ -258,7 +258,7 @@ do
 								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 								ln -s ${CUSTOM_ROOT_PATH}/toolchains/${TOOLCHAIN}/${TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
-						sleep 10
+						sleep 2
 						break ;;
 					4)
 						echo "========================================="
