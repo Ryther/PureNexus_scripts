@@ -1,7 +1,12 @@
 #!/bin/bash
-# PureNexus build helper
+# ${ROM_NAME} build helper
 
 # Constants
+ROM_NAME="PureNexus"
+BUILD_ROOT_PATH="~/android/${ROM_NAME}"
+CUSTOM_ROOT_PATH="~/android/Ryther"
+LUNCH_PREFIX="nexus"
+LUNCH_SUFFIX="user"
 DEVICES=2
 SELECTION=1
 TOOLCHAIN_SELECTION=1
@@ -13,15 +18,15 @@ MENU_TOOLCHAIN_ITEMS=5
 source build/envsetup.sh &> /dev/null
 
 # Set standard toolchain
-if [ -d ~/android/Ryther/toolchains/UBERTC/aarch64/ ]
+if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ]
 	then
-		unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
-		ln -s ~/android/Ryther/toolchains/UBERTC/aarch64/ ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
+		unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 fi
-if [ -d ~/android/Ryther/toolchains/UBERTC/arm/ ]
+if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ]
 	then
-		unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
-		ln -s ~/android/Ryther/toolchains/UBERTC/arm/ ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
+		unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 fi
 
 # Prepare to build for selected model
@@ -31,46 +36,45 @@ do
 	clear
 	echo "-- Toolchain: $TOOLCHAIN"
 	echo "---------------------------------------------"
-	echo "|Select the model to build PureNexus on:    |"
+	echo " Select the model to build ${ROM_NAME} on:     "
 	if [ "$SELECTION" == "1" ]
     	then
-    	    echo "| * 1  --  Bullhead                         |"
+    	    echo "  * 1  --  Bullhead                          "
     	else
-    	    echo "|   1  --  Bullhead                         |"
+    	    echo "    1  --  Bullhead                          "
 	fi
 	if [ "$SELECTION" == "2" ]
     	then
-    	    echo "| * 2  --  HammerHead                       |"
+    	    echo "  * 2  --  HammerHead                        "
     	else
-    	    echo "|   2  --  HammerHead                       |"
+    	    echo "    2  --  HammerHead                        "
 	fi
 	if [ "$SELECTION" == "3" ]
     	then
-    	    echo "| * 3  --  All devices                      |"
+    	    echo "  * 3  --  All devices                       "
     	else
-    	    echo "|   3  --  All devices                      |"
+    	    echo "    3  --  All devices                       "
 	fi
 	if [ "$SELECTION" == "4" ]
     	then
-    	    echo "| * 4  --  Select toolchain                 |"
+    	    echo "  * 4  --  Select toolchain                  "
     	else
-    	    echo "|   4  --  Select toolchain                 |"
+    	    echo "    4  --  Select toolchain                  "
 	fi
 	if [ "$SELECTION" == "5" ]
     	then
-    	    echo "| * 5  --  Exit                             |"
+    	    echo "  * 5  --  Exit                              "
     	else
-    	    echo "|   5  --  Exit                             |"
+    	    echo "    5  --  Exit                              "
 	fi
 	echo "============================================="
-	echo "|Use - or + to move in the selection        |"
+	echo " Use - or + to move in the selection         "
 	
 	# Save SELECTION
 	TEMP_SELECTION=$SELECTION
 	
 	# Read the value, no enter required
-	read -n 1 -p "|-> Make a choice or enter to confirm: " SELECTION
-	echo "    |"
+	read -n 1 -p " -> Make a choice or enter to confirm: " SELECTION
 	
 	# Check for enter command, start the current selection
 	if [ "$SELECTION" == "" ]
@@ -101,21 +105,19 @@ do
 		# Real selection
 		1)
 			echo "============================================="
-			echo "|            Bullhead selected              |"
-			echo "---------------------------------------------"
-			lunch aosp_bullhead-userdebug 
+			echo "             Bullhead selected               "
+			echo "---------------------------------------------" 
 			DEVICES=SELECTION
 			break ;;
 		2) 
 			echo "============================================="
-			echo "|          Hammerheadhead selected          |"
+			echo "           Hammerheadhead selected           "
 			echo "---------------------------------------------"
-			lunch aosp_hammerhead-userdebug 
 			DEVICES=SELECTION
 			break ;;
 		3)
 			echo "============================================="
-			echo "|      Build for all devices selected       |"
+			echo "       Build for all devices selected        "
 			echo "---------------------------------------------"
 			SELECTION=1
 			break ;;
@@ -126,46 +128,45 @@ do
 				# Displys the menu
 				clear
 				echo "-----------------------------------------"
-				echo "|Select the toolchain to build with:    |"
+				echo " Select the toolchain to build with:     "
 				if [ "$TOOLCHAIN_SELECTION" == "1" ]
 					then
-						echo "| * 1  --  UBERTC 4.9 (standard)        |"
+						echo "  * 1  --  UBERTC 4.9 (standard)         "
 					else
-						echo "|   1  --  UBERTC 4.9 (standard)        |"
+						echo "    1  --  UBERTC 4.9 (standard)         "
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "2" ]
 					then
-						echo "| * 2  --  SaberMod 4.9                 |"
+						echo "  * 2  --  SaberMod 4.9                  "
 					else
-						echo "|   2  --  SaberMod 4.9                 |"
+						echo "    2  --  SaberMod 4.9                  "
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "3" ]
 					then
-						echo "| * 3  --  Linaro 4.9                   |"
+						echo "  * 3  --  Linaro 4.9                    "
 					else
-						echo "|   3  --  Linaro 4.9                   |"
+						echo "    3  --  Linaro 4.9                    "
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "4" ]
 					then
-						echo "| * 3  --  Back to devices              |"
+						echo "  * 3  --  Back to devices               "
 					else
-						echo "|   3  --  Back to devices              |"
+						echo "    3  --  Back to devices               "
 				fi
 				if [ "$TOOLCHAIN_SELECTION" == "5" ]
 					then
-						echo "| * 4  --  Exit                         |"
+						echo "  * 4  --  Exit                          "
 					else
-						echo "|   4  --  Exit                         |"
+						echo "    4  --  Exit                          "
 				fi
 				echo "========================================="
-				echo "|Use - or + to move in the selection    |"
+				echo " Use - or + to move in the selection     "
 	
 				# Save SELECTION
 				TEMP_TOOLCHAIN_SELECTION=$TOOLCHAIN_SELECTION
 	
 				# Read the value, no enter required
-				read -n 1 -p "|-> Make a choice or enter to confirm: " TOOLCHAIN_SELECTION
-				echo "|"
+				read -n 1 -p " -> Make a choice or enter to confirm: " TOOLCHAIN_SELECTION
 	
 				# Check for enter command, start the current selection
 				if [ "$TOOLCHAIN_SELECTION" == "" ]
@@ -196,58 +197,58 @@ do
 					# Real selection
 					1)
 						echo "========================================="
-						echo "|          UBERTC 4.9 selected          |"
+						echo "           UBERTC 4.9 selected           "
 						echo "-----------------------------------------"
-						if [ -d ~/android/Ryther/toolchains/UBERTC/aarch64/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ]
 							then
-								unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
-								ln -s ~/android/Ryther/toolchains/UBERTC/aarch64/ ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
+								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 						fi
-						if [ -d ~/android/Ryther/toolchains/UBERTC/arm/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ]
 							then
-								unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
-								ln -s ~/android/Ryther/toolchains/UBERTC/arm/ ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
+								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
 						TOOLCHAIN="UBERTC"
 						sleep 2
 						break ;;
 					2) 
 						echo "========================================="
-						echo "|         SaberMod 4.9 selected         |"
+						echo "          SaberMod 4.9 selected          "
 						echo "-----------------------------------------"
-						if [ -d ~/android/Ryther/toolchains/SaberMod/aarch64/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/aarch64/ ]
 							then
-								unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
-								ln -s ~/android/Ryther/toolchains/SaberMod/aarch64/ ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
+								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 						fi
-						if [ -d ~/android/Ryther/toolchains/SaberMod/arm/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/arm/ ]
 							then
-								unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
-								ln -s ~/android/Ryther/toolchains/SaberMod/arm/ ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
+								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/SaberMod/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
 						TOOLCHAIN="SaberMod"
 						sleep 2
 						break ;;
 					3) 
 						echo "========================================="
-						echo "|          Linaro 4.9 selected          |"
+						echo "           Linaro 4.9 selected           "
 						echo "-----------------------------------------"
-						if [ -d ~/android/Ryther/toolchains/Linaro/aarch64/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/Linaro/aarch64/ ]
 							then
-								unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
-								ln -s ~/android/Ryther/toolchains/Linaro/aarch64/ ~/android/PureNexus/prebuilts/gcc/linux-x86/aarch64
+								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/Linaro/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
 						fi
-						if [ -d ~/android/Ryther/toolchains/Linaro/arm/ ]
+						if [ -d ${CUSTOM_ROOT_PATH}/toolchains/Linaro/arm/ ]
 							then
-								unlink ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
-								ln -s ~/android/Ryther/toolchains/Linaro/arm/ ~/android/PureNexus/prebuilts/gcc/linux-x86/arm
+								unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+								ln -s ${CUSTOM_ROOT_PATH}/toolchains/Linaro/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 						fi
 						TOOLCHAIN="Linaro"
 						sleep 2
 						break ;;
 					4)
 						echo "========================================="
-						echo "|    Returning to devices selection     |"
+						echo "     Returning to devices selection      "
 						echo "-----------------------------------------"
 						sleep 2
 						break ;;
@@ -270,11 +271,11 @@ do
 done
 
 #Check for required logs dir and create them if necessary
-	if [ ! -d ~/android/logs/stdout/PureNexus ]; then
-		mkdir -p ~/android/logs/stdout/PureNexus
+	if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME} ]; then
+		mkdir -p ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}
 	fi
-	if [ ! -d ~/android/logs/stderr/PureNexus ]; then
-		mkdir -p ~/android/logs/stderr/PureNexus
+	if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME} ]; then
+		mkdir -p ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}
 	fi
 
 # Check numbers of core to optimize building
@@ -290,20 +291,20 @@ for (( i=SELECTION; i<=$DEVICES; i++ ))
 			1)
 				MODEL="bullhead"
 				echo "========================================="
-				echo "|          Building $MODEL            |"
+				echo "           Building $MODEL             "
 				echo "-----------------------------------------"
-				lunch aosp_${MODEL}-userdebug ;;
+				lunch ${LUNCH_PREFIX}_${MODEL}-${LUNCH_SUFFIX} ;;
 			2) 
 				MODEL="hammerhead"
 				echo "========================================="
-				echo "|         Building $MODEL           |"
+				echo "          Building $MODEL            "
 				echo "-----------------------------------------"
-				lunch aosp_${MODEL}-userdebug ;;
+				lunch ${LUNCH_PREFIX}_${MODEL}-${LUNCH_SUFFIX} ;;
 		esac
 
 		# Start building
-		time make -j$(( $N_CORES * 2 )) dist > >(tee ~/android/logs/stdout/PureNexus/stdout_build_${MODEL}_sh.log) 2> >(tee ~/android/logs/stderr/PureNexus/stderr_build_${MODEL}_sh.log >&2)
+		time make -j$(( $N_CORES * 2 )) dist > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_build_${MODEL}_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_build_${MODEL}_sh.log >&2)
 		echo "========================================="
-		echo "|             Built $MODEL           |"
+		echo "              Built $MODEL            "
 		echo "-----------------------------------------"
 done
