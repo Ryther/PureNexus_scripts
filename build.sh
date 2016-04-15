@@ -1,4 +1,4 @@
-#!/bin/bash -vx
+#!/bin/bash
 # ${ROM_NAME} build helper
 
 echo ""
