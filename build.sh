@@ -303,6 +303,8 @@ for (( i=SELECTION; i<=$DEVICES; i++ ))
 		esac
 
 		# Start building
+		echo ""
+		echo "Starting to build..."
 		time make -j$(( $N_CORES * 2 )) dist > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_build_${MODEL}_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_build_${MODEL}_sh.log >&2)
 		echo "========================================="
 		echo "              Built $MODEL            "
