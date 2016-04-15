@@ -1,11 +1,14 @@
 #!/bin/bash
 # Repo sync script
 
-#Consts
-STANDARD_TOOLCHAIN_VERSION="4.9"
-ROM_NAME="PureNexus"
-BUILD_ROOT_PATH="~/android/${ROM_NAME}"
-CUSTOM_ROOT_PATH="~/android/Ryther"
+# Include global variables
+if [ -f $(dirname "$0")/variables.var ]
+	then
+		source variables.var
+	else
+		source scripts_init.sh
+		source variables.var
+fi
 
 # Update the local_manifests
 cd ${BUILD_ROOT_PATH}/.repo/local_manifests/

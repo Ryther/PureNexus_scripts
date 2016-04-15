@@ -2,7 +2,15 @@
 # Repo init script
 
 # Include global variables
-source variables.var
+if [ -f $(dirname "$0")/variables.var ]
+	then
+		source variables.var
+	else
+		source scripts_init.sh
+		source variables.var
+fi
+
+echo "$USER_NAME"
 
 # Initialize the repo
 repo init -u ${REMOTE_REPO} -b ${BRANCH}
