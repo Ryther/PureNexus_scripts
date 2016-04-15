@@ -1,14 +1,8 @@
 #!/bin/bash
 # Repo init script
 
-# Consts
-REMOTE_REPO="https://github.com/PureNexusProject/manifest.git"
-REMOTE_CUSTOM_REPO="https://github.com/Ryther"
-BRANCH="mm"
-STANDARD_TOOLCHAIN_VERSION="4.9"
-ROM_NAME="PureNexus"
-BUILD_ROOT_PATH="~/android/${ROM_NAME}"
-CUSTOM_ROOT_PATH="~/android/Ryther"
+# Include global variables
+source variables.var
 
 # Initialize the repo
 repo init -u ${REMOTE_REPO} -b ${BRANCH}
