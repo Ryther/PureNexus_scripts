@@ -10,8 +10,6 @@ if [ -f $(dirname "$0")/variables.var ]
 		source $(dirname "$0")/variables.var
 fi
 
-echo "$USER_NAME"
-
 # Initialize the repo
 repo init -u ${REMOTE_REPO} -b ${BRANCH}
 
