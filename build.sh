@@ -1,5 +1,5 @@
 #!/bin/bash
-# ${ROM_NAME} build helper
+# Build helper
 
 echo ""
 echo "Checking for project global variables..."
@@ -115,18 +115,21 @@ do
 		    continue ;;
 		# Real selection
 		1)
+			echo ""
 			echo "============================================="
 			echo "             Bullhead selected               "
 			echo "---------------------------------------------" 
 			DEVICES=SELECTION
 			break ;;
 		2) 
+			echo ""
 			echo "============================================="
 			echo "           Hammerheadhead selected           "
 			echo "---------------------------------------------"
 			DEVICES=SELECTION
 			break ;;
 		3)
+			echo ""
 			echo "============================================="
 			echo "       Build for all devices selected        "
 			echo "---------------------------------------------"
@@ -207,6 +210,7 @@ do
 						continue ;;
 					# Real selection
 					1)
+						echo ""
 						echo "========================================="
 						echo "           UBERTC 4.9 selected           "
 						echo "-----------------------------------------"
@@ -225,6 +229,7 @@ do
 						sleep 2
 						break ;;
 					2) 
+						echo ""
 						echo "========================================="
 						echo "          SaberMod 4.9 selected          "
 						echo "-----------------------------------------"
@@ -243,6 +248,7 @@ do
 						sleep 2
 						break ;;
 					3) 
+						echo ""
 						echo "========================================="
 						echo "           Linaro 5.1 selected           "
 						echo "-----------------------------------------"
@@ -261,6 +267,7 @@ do
 						sleep 2
 						break ;;
 					4)
+						echo ""
 						echo "========================================="
 						echo "     Returning to devices selection      "
 						echo "-----------------------------------------"
