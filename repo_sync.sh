@@ -34,6 +34,9 @@ unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 # Unlink removed vendors folders before sync to prevents errors 1/2
 unlink ${BUILD_ROOT_PATH}/vendor/lge
 
+# Standard GCC prompt
+read -p "Do you want to use a modded GCC? [y/N] " STANDARD_GCC
+
 echo ""
 echo "Starting repo sync..."
 if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME} ]
@@ -50,20 +53,23 @@ time repo sync -j4 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${
 
 # Reset to standard toolchain 2/2
 # Create new link
-if [ -d ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64 ]
-	then
-		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
-	else
-		mkdir -p ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/
-		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
-fi
-if [ -d ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm ]
-	then
-		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
-	else
-		mkdir -p ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/
-		ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
-fi
+case $STANDARD_GCC in
+	"y"|"Y")
+		if [ -d ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64 ]
+			then
+				ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+			else
+				mkdir -p ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/
+				ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/aarch64/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64
+		fi
+		if [ -d ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm ]
+			then
+				ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+			else
+				mkdir -p ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/
+				ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
+		fi
+esac
 
 # Unlink removed vendors folders before sync to prevents errors 2/2
 ln -s ${CUSTOM_ROOT_PATH}/vendor/lge/ ${BUILD_ROOT_PATH}/vendor/lge
