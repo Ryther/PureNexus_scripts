@@ -34,8 +34,8 @@ unlink ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 # Unlink removed vendors folders before sync to prevents errors 1/2
 unlink ${BUILD_ROOT_PATH}/vendor/lge
 
-# Standard GCC prompt
-read -p "Do you want to use a modded GCC? [y/N] " STANDARD_GCC
+# Standard TC prompt
+read -p "Do you want to use a modded toolchain? [y/N] " STANDARD_TC
 
 echo ""
 echo "Starting repo sync..."
@@ -53,7 +53,7 @@ time repo sync -j4 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${
 
 # Reset to standard toolchain 2/2
 # Create new link
-case $STANDARD_GCC in
+case $STANDARD_TC in
 	"y"|"Y")
 		if [ -d ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/aarch64 ]
 			then
