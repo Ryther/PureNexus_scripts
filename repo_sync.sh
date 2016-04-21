@@ -37,20 +37,6 @@ unlink ${BUILD_ROOT_PATH}/vendor/lge
 # Standard TC prompt
 read -p "Do you want to use a modded toolchain? [y/N] " STANDARD_TC
 
-echo ""
-echo "Starting repo sync..."
-if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME} ]
-	then
-		mkdir -p ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/
-fi
-if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME} ]
-	then
-		mkdir -p ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/
-fi
-
-# Syncing
-time repo sync -j4 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_repo_sync_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_repo_sync_sh.log >&2)
-
 # Reset to standard toolchain 2/2
 # Create new link
 case $STANDARD_TC in
@@ -70,6 +56,20 @@ case $STANDARD_TC in
 				ln -s ${CUSTOM_ROOT_PATH}/toolchains/UBERTC/${STANDARD_TOOLCHAIN_VERSION}/arm/ ${BUILD_ROOT_PATH}/prebuilts/gcc/linux-x86/arm
 		fi
 esac
+
+echo ""
+echo "Starting repo sync..."
+if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME} ]
+	then
+		mkdir -p ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/
+fi
+if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME} ]
+	then
+		mkdir -p ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/
+fi
+
+# Syncing
+time repo sync -j4 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_repo_sync_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_repo_sync_sh.log >&2)
 
 # Unlink removed vendors folders before sync to prevents errors 2/2
 ln -s ${CUSTOM_ROOT_PATH}/vendor/lge/ ${BUILD_ROOT_PATH}/vendor/lge
