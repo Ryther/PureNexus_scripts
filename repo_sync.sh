@@ -86,7 +86,7 @@ if [ ! -d ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME} ]
 fi
 
 # Syncing
-time repo sync -j4 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_repo_sync_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_repo_sync_sh.log >&2)
+time repo sync -j8 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_repo_sync_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_repo_sync_sh.log >&2)
 
 # Unlink removed vendors folders before sync to prevents errors 2/2
 if [ ! -d ${BUILD_ROOT_PATH}/vendor/lge ]
