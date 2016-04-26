@@ -26,7 +26,7 @@ git pull
 echo "--------------------------------------------------"
 echo "Select the branch of the local_manifest"
 echo "--------------------------------------------------"
-BRANCH=($(git branch -r | cut -f1 -d'-' | cut -f2- -d'/'))
+BRANCH=($(git branch -r | awk 'BEGIN {FS="->"} {print $1}' | cut -f2- -d'/'))
 for ((i=0;i<${#BRANCH[@]};i++))
 do
     
