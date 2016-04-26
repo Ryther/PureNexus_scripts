@@ -23,6 +23,23 @@ echo ""
 echo "Updating local_manifest..."
 cd ${BUILD_ROOT_PATH}/.repo/local_manifests/
 git pull
+echo "--------------------------------------------------"
+echo "Select the branch of the local_manifest"
+echo "--------------------------------------------------"
+BRANCH=($(git branch -r | cut -f1 -d'-' | cut -f2- -d'/'))
+for ((i=0;i<${#BRANCH[@]};i++))
+do
+    
+    echo "$(( $i + 1 )) - ${BRANCH[$i]}"
+done
+echo "--------------------------------------------------"
+BRANCH_SEL=-1
+while [[ ($BRANCH_SEL -lt 0) || (${BRANCH_SEL} -gt ${#BRANCH[@]}) ]]
+do
+    read -n 1 -p "Select a branch: " BRANCH_SEL
+    echo ""
+done
+git checkout ${BRANCH[(( ${BRANCH_SEL} - 1 ))]}
 
 cd ${BUILD_ROOT_PATH}/
 
@@ -72,7 +89,10 @@ fi
 time repo sync -j4 -c -f --force-sync > >(tee ${CUSTOM_ROOT_PATH}/logs/stdout/${ROM_NAME}/stdout_repo_sync_sh.log) 2> >(tee ${CUSTOM_ROOT_PATH}/logs/stderr/${ROM_NAME}/stderr_repo_sync_sh.log >&2)
 
 # Unlink removed vendors folders before sync to prevents errors 2/2
-ln -s ${CUSTOM_ROOT_PATH}/vendor/lge/ ${BUILD_ROOT_PATH}/vendor/lge
+if [ ! -d ${BUILD_ROOT_PATH}/vendor/lge ]
+then
+    ln -s ${CUSTOM_ROOT_PATH}/vendor/lge/ ${BUILD_ROOT_PATH}/vendor/lge
+fi
 
 # Update vendors files
 echo ""
