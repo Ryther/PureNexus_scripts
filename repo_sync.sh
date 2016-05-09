@@ -99,3 +99,4 @@ echo ""
 echo "Updating vendors files..."
 cd ${CUSTOM_ROOT_PATH}/vendor/lge/
 git pull
+echo "repo_sync.sh finished" | mail -s "[SCRIPT] repo_sync.sh finished" edoardo.zanoni@gmail.com
