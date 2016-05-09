@@ -331,3 +331,4 @@ for (( i=SELECTION; i<=$DEVICES; i++ ))
 		echo "              Built $MODEL            "
 		echo "-----------------------------------------"
 done
+echo "fast_start.sh finished" | mail -s "[SCRIPT] fast_start.sh finished" edoardo.zanoni@gmail.com
