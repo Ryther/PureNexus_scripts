@@ -331,3 +331,4 @@ for (( i=SELECTION; i<=$DEVICES; i++ ))
 		echo "              Built $MODEL            "
 		echo "-----------------------------------------"
 done
+echo "build.sh finished" | mail -s "[SCRIPT] build.sh finished" edoardo.zanoni@gmail.com
